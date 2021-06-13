@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table class="table table-borderless">
+    <thead class='border-bottom font-weight-bold'>
+
+        <tr>
+            <td>Full Name</td>
+            <td>EMP Code</td>
+            <td> Mobile No</td>
+            <td>Position</td>
+            <td>Address</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in employee_list %}
+          <tr>
+              <td>{{employee.fullname}}</td>
+              <td>{{employee.emp_code}}</td>
+              <td>{{employee.mobile}}</td>
+              <td>{{employee.position}}</td>
+              <td>{{employee.address}}</td>
+              <td>
+                  <a href="{% url 'updatedata' employee.id %}" class="btn text-secondary px-0">
+                    <i class="far fa-edit fa-lg"></i>Edit
+                  </a>  
+                </td>
+                <td>
+                 <form action="{% url 'deletedata' employee.id %}" method='post' class="d-inline">  {% csrf_token %}
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                  </form>
+                   
+                </td>
+          </tr>
+        {% endfor %}  
+    </tbody>
+</table>
+    
+{% endblock content %}
